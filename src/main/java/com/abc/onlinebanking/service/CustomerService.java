@@ -30,7 +30,14 @@ public class CustomerService
     //saving data
     public void saveOrUpdate(CustomerDetails customer)
     {
-        customerRepository.save(customer);
+        CustomerDetails customerDetails = new CustomerDetails();
+        customerDetails.setName(customer.getName());
+        customerDetails.setAddress(customer.getAddress());
+        customerDetails.setCity(customer.getCity());
+        customerDetails.setPhone(customer.getPhone());
+
+        customerDetails.setAccounts(customer.getAccounts());
+        customerRepository.save(customerDetails);
     }
 
     //deleting a specific record
@@ -38,4 +45,6 @@ public class CustomerService
     {
         customerRepository.deleteById(id);
     }
+
+
 }

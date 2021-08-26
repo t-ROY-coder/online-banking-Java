@@ -2,6 +2,7 @@ package com.abc.onlinebanking.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.*;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -28,6 +29,11 @@ public class CustomerDetails {
 
 	@Column(name = "PHONE")
 	private long phone;
+
+	@OneToMany(targetEntity = AccountDetails.class,
+			cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "customer_Id")
+	private List<AccountDetails> accounts;
 
 	public CustomerDetails(){}
 
@@ -75,5 +81,13 @@ public class CustomerDetails {
 	}
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public List<AccountDetails> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<AccountDetails> accounts) {
+		this.accounts = accounts;
 	}
 }

@@ -1,5 +1,6 @@
 package com.abc.onlinebanking.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.*;
 import java.util.Set;
@@ -21,13 +22,24 @@ public class AccountDetails {
 	@Column(name = "DATE_CREATED")
 	private LocalDate dateCreated;
 
+	@JsonIgnore
+	@ManyToOne
+	private CustomerDetails customer;
+	public CustomerDetails getCustomer() {
+		return customer;
+	}
+	public void setCustomer(CustomerDetails customer) {
+		this.customer = customer;
+	}
+
 	//constructor
 	public AccountDetails(){}
-	public AccountDetails(String accountNumber, float accountBalance, LocalDate dateCreated) {
+	public AccountDetails(String accountNumber, float accountBalance, LocalDate dateCreated, CustomerDetails customer) {
 		super();
 		this.accountNumber = accountNumber;
 		this.accountBalance = accountBalance;
 		this.dateCreated = dateCreated;
+		this.customer = customer;
 	}
 	
 	public String getAccountNumber() {
@@ -48,4 +60,6 @@ public class AccountDetails {
 	public void setDateCreated(LocalDate dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+
+
 }
